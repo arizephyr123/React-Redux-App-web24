@@ -1,23 +1,36 @@
-import axios from 'axios';
+import axios from "axios";
 
-export const FETCH_DATA_LOADING = "FETCH_DATA_LOADING";export const FETCH_DATA_SUCCESS = "FETCH_DATA_SUCCESS";
+export const FETCH_DATA_LOADING = "FETCH_DATA_LOADING";
+export const FETCH_DATA_SUCCESS = "FETCH_DATA_SUCCESS";
 export const FETCH_DATA_FAILURE = "FETCH_DATA_FAILURE";
 
-
 export const dataLoading = () => ({
-    type: FETCH_DATA_LOADING
+  type: FETCH_DATA_LOADING
 });
 
 export const dataLoadSuccess = data => ({
-    type: FETCH_DATA_SUCCESS,
-    payload: data
+  type: FETCH_DATA_SUCCESS,
+  payload: data
 });
 
 export const dataLoadFailure = error => ({
-type: FETCH_DATA_FAILURE,
-payload: error
+  type: FETCH_DATA_FAILURE,
+  payload: error
 });
 
+export const fetchData = () => dispatch => {
+  dispatch({ type: FETCH_DATA_LOADING });
+  axios
+    .get("")
+    .then(res => dispatch({ type: FETCH_DATA_SUCCESS, payload: res.data }))
+    .catch(err => {
+      dispatch({ type: FETCH_DATA_FAILURE, payload: error });
+    });
+};
+
+/*
+the following in same as above but refactored as arrow function
+==============================
 export function fetchData() {
 return function (dispatch) {
     dispatch(dataLoading());
@@ -32,3 +45,4 @@ dispatch(dataLoadFailure(err))
     })
 }
 };
+*/
