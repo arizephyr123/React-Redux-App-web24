@@ -18,13 +18,15 @@ export const dataLoadFailure = error => ({
   payload: error
 });
 
+const YOUR_API_KEY = '2dd2281e-4a22-4342-8bc1-89c7facc8530';
+
 export const fetchData = () => dispatch => {
   dispatch({ type: FETCH_DATA_LOADING });
   axios
-    .get("")
+    .get(`http://api.airvisual.com/v2/city?city=Los Angeles&state=California&country=USA&key=${YOUR_API_KEY}`)
     .then(res => dispatch({ type: FETCH_DATA_SUCCESS, payload: res.data }))
     .catch(err => {
-      dispatch({ type: FETCH_DATA_FAILURE, payload: error });
+      dispatch({ type: FETCH_DATA_FAILURE, payload: err });
     });
 };
 
